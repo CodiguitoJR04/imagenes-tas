@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Galería QR</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    img { max-width: 90%; margin: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Galería QR</h1>
+  <div id="galeria">
+    <img>
+    
+    </img>
+  </div>
+
+  <script>
+    // Extraer ID desde la URL
+    const path = window.location.pathname.replace("/", "");
+    const carpeta = path || "default";
+
+    // Número máximo de imágenes que esperas por QR
+    const MAX_IMAGENES = 10;
+
+    const galeria = document.getElementById("galeria");
+
+    for (let i = 1; i <= MAX_IMAGENES; i++) {
+      const img = new Image();
+      img.src = `/imagenes/${carpeta}/img${i}.jpg`;
+      img.onload = () => galeria.appendChild(img);
+      img.onerror = () => {}; // si no existe, no se muestra
+    }
+  </script>
+</body>
+</html>
