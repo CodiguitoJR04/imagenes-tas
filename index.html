@@ -24,20 +24,18 @@
   <div id="galeria"></div>
 
   <script>
-    // Obtener carpeta desde la URL
-    const path = window.location.pathname.split("/").pop();
-    const carpeta = path || "default";
+   // Obtener el número de carpeta y nombres de imágenes desde la URL
+const urlParams = new URLSearchParams(window.location.search);
+const carpeta = urlParams.get('carpeta') || "1"; // Carpeta por defecto: /1/
+const imagenes = urlParams.get('imagenes')?.split(",") || ["sat1.jpg", "sat2.jpg"]; // Imágenes por defecto
 
-    // Cantidad máxima de imágenes por carpeta
-    const MAX_IMAGENES = 10;
-    const galeria = document.getElementById("galeria");
-
-    for (let i = 1; i <= MAX_IMAGENES; i++) {
-      const img = new Image();
-      img.src = `/imagenes/${carpeta}/img${i}.jpg`;
-      img.onload = () => galeria.appendChild(img);
-      img.onerror = () => {}; // Ignorar si no existe
-    }
+// Cargar imágenes dinámicamente
+const galeria = document.getElementById("galeria");
+imagenes.forEach(nombre => {
+  const img = new Image();
+  img.src = `/imagenes/imagen/${carpeta}/${nombre}`;
+  img.onload = () => galeria.appendChild(img);
+});
   </script>
 </body>
 </html>
